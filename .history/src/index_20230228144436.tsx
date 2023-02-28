@@ -4,7 +4,9 @@ import App from '@/App'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-
-
+const obj = {
+  name: 111,
+  age: 'lsh'
+}
 
 root.render(<App />)
