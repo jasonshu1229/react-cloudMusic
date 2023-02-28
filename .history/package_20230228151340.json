@@ -26,17 +26,10 @@
     "release": "standard-version"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -54,7 +47,7 @@
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^2.8.4",
     "standard-version": "^9.5.0"
-  },
+  }
   // "config": {
   //   "commitizen": {
   //     "path": "./node_modules/cz-conventional-changelog"

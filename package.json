@@ -10,6 +10,8 @@
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "craco-less": "^2.1.0-alpha.0",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
