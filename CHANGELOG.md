@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.2...v0.1.3) (2023-03-03)
+
+
+### Features
+
+* 项目搭建-定义组件和props的类型约束 ([fecb319](https://github.com/jasonshu1229/react-cloudMusic/commit/fecb319877a1ea9476833c7565f5e716c05d7437))
+* 项目搭建-二级路由的创建和配置过程 ([5671b6c](https://github.com/jasonshu1229/react-cloudMusic/commit/5671b6cda2567978757f7cc957c8a0f5ab8e95c9))
+* 项目搭建-路由懒加载的组件分包 ([3160fad](https://github.com/jasonshu1229/react-cloudMusic/commit/3160fad1be82abe497848e22b1cee256254bda86))
+* 项目搭建-自动生成代码片段-一级路由的配置 ([fd841ed](https://github.com/jasonshu1229/react-cloudMusic/commit/fd841ed805dd4a53aecc35f156b27679f42dc68c))
+
 ### [0.1.2](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.1...v0.1.2) (2023-02-28)
 
 
