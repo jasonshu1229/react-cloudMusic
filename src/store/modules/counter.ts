@@ -7,7 +7,12 @@ const counterSlice = createSlice({
     message: 'hello redux',
     height: 188
   },
-  reducers: {}
+  reducers: {
+    changeMessageAction(state, { payload }) {
+      state.message = payload;
+    }
+  }
 });
 
+export const { changeMessageAction } = counterSlice.actions;
 export default counterSlice.reducer;

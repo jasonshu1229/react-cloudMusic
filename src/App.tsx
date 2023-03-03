@@ -2,13 +2,22 @@ import React, { Suspense } from 'react';
 import routes from './router';
 import { useRoutes, Link } from 'react-router-dom';
 
-import { useAppSelector } from './store/hooks';
+import { useAppSelector, useAppDispatch, shallowAppEqual } from './store/hooks';
+import { changeMessageAction } from './store/modules/counter';
 
 function App() {
-  const { count, message } = useAppSelector((state) => ({
-    count: state.counter.count,
-    message: state.counter.message
-  }));
+  const { count, message } = useAppSelector(
+    (state) => ({
+      count: state.counter.count,
+      message: state.counter.message
+    }),
+    shallowAppEqual
+  );
+
+  const dispatch = useAppDispatch();
+  const handleMessage = () => {
+    dispatch(changeMessageAction('哈哈哈哈哈哈'));
+  };
 
   return (
     <div className="App">
@@ -20,6 +29,7 @@ function App() {
       </div>
       <h2>当前计数：{count}</h2>
       <h2>当前Message：{message}</h2>
+      <button onClick={handleMessage}>修改Message</button>
       <Suspense fallback="">
         <div className="main">{useRoutes(routes)}</div>
       </Suspense>
