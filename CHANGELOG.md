@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.3...v0.1.4) (2023-03-03)
+
+
+### Features
+
+* 项目搭建-集成@reduxjs/toolkit-useSelector的类型封装 ([6657e32](https://github.com/jasonshu1229/react-cloudMusic/commit/6657e327ddfbfcdb2bc9aa93df8a0b36c64a8ebb))
+
 ### [0.1.3](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.2...v0.1.3) (2023-03-03)
 
 
