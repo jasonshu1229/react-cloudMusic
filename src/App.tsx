@@ -5,6 +5,8 @@ import { useRoutes, Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch, shallowAppEqual } from './store/hooks';
 import { changeMessageAction } from './store/modules/counter';
 
+import Demo02 from './views/demo/class';
+
 function App() {
   const { count, message } = useAppSelector(
     (state) => ({
@@ -29,6 +31,7 @@ function App() {
       </div>
       <h2>当前计数：{count}</h2>
       <h2>当前Message：{message}</h2>
+      <Demo02 name="lsh" age={18} />
       <button onClick={handleMessage}>修改Message</button>
       <Suspense fallback="">
         <div className="main">{useRoutes(routes)}</div>
