@@ -11,7 +11,8 @@ function App() {
   const { count, message } = useAppSelector(
     (state) => ({
       count: state.counter.count,
-      message: state.counter.message
+      message: state.counter.message,
+      disrection: state.counter.direction
     }),
     shallowAppEqual
   );
