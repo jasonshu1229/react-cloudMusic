@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.4...v0.1.5) (2023-03-09)
+
+
+### Features
+
+* 补充-类组件和TS结合的类型约束 ([deadb83](https://github.com/jasonshu1229/react-cloudMusic/commit/deadb83d373d9120dd0018ec3025902c12c8bddd))
+* 项目搭建-ts二次封装axios测试和开发环境生产环境的区分 ([4bbf663](https://github.com/jasonshu1229/react-cloudMusic/commit/4bbf663e8c536727675b70b34ec36fe5b04529dd))
+* 项目搭建-useDispatch的hook单独抽取 ([54ad553](https://github.com/jasonshu1229/react-cloudMusic/commit/54ad553368d99cdd3042887597f90dcf34db4d52))
+* app搭建-Header结构搭建-CSS样式使用方式 ([6249c43](https://github.com/jasonshu1229/react-cloudMusic/commit/6249c438fac047c90484427283ead057f786efc7))
+* App整体结构搭建 ([11cfaa0](https://github.com/jasonshu1229/react-cloudMusic/commit/11cfaa00757331cb796841c7989af18a889aeaf1))
+
 ### [0.1.4](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.3...v0.1.4) (2023-03-03)
 
 ### Features
