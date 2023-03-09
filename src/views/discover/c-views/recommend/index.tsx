@@ -30,8 +30,6 @@ const Recommend: FC<IProps> = () => {
       });
   }, []);
 
-  console.log(bannerList);
-
   return <div>Recommend</div>;
 };
 

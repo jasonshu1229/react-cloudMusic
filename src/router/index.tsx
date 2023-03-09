@@ -23,7 +23,7 @@ const routes: RouteObject[] = [
     element: <Discover />,
     children: [
       {
-        path: '/discover/',
+        path: '/discover',
         element: <Navigate to="/discover/recommend" />
       },
       {
