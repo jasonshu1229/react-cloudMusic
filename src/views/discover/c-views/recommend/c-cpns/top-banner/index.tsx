@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react';
+import React, { memo, FC, useRef, ElementRef } from 'react';
 import type { ReactNode } from 'react';
 
 import { BannerWrapper, BannerLeft, BannerRight, BannerControl } from './style';
@@ -10,6 +10,8 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = () => {
+  const bannerRef = useRef<ElementRef<typeof Carousel>>(null);
+
   const { banners } = useAppSelector(
     (state) => ({
       banners: state.recommend.banners
@@ -17,11 +19,19 @@ const TopBanner: FC<IProps> = () => {
     shallowAppEqual
   );
 
+  const handleClick = (state: string) => {
+    if (state === 'prev') {
+      bannerRef.current?.prev();
+    } else {
+      bannerRef.current?.next();
+    }
+  };
+
   return (
     <BannerWrapper>
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel autoplay autoplaySpeed={3000}>
+          <Carousel autoplay autoplaySpeed={3000} ref={bannerRef}>
             {banners.map((item) => (
               <div className="banner-item" key={item.imageUrl}>
                 <img
@@ -35,8 +45,14 @@ const TopBanner: FC<IProps> = () => {
         </BannerLeft>
         <BannerRight></BannerRight>
         <BannerControl>
-          <button className="btn left"></button>
-          <button className="btn right"></button>
+          <button
+            className="btn left"
+            onClick={() => handleClick('prev')}
+          ></button>
+          <button
+            className="btn right"
+            onClick={() => handleClick('next')}
+          ></button>
         </BannerControl>
       </div>
     </BannerWrapper>
