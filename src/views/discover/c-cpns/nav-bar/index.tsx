@@ -15,7 +15,12 @@ const NavBar: FC<IProps> = () => {
       <div className="nav wrap-v1">
         {discoverMenu.map((item) => (
           <div className="item" key={item.title}>
-            <NavLink to={item.link}>{item.title}</NavLink>
+            <NavLink
+              to={item.link}
+              className={({ isActive }) => (isActive ? 'active' : undefined)}
+            >
+              {item.title}
+            </NavLink>
           </div>
         ))}
       </div>

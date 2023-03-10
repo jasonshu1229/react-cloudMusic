@@ -1,36 +1,26 @@
-import hyRequest from '@/service';
-import React, { memo, FC, useEffect, useState } from 'react';
+import { useAppDispatch } from '@/store/hooks';
+import React, { memo, FC, useEffect } from 'react';
 import type { ReactNode } from 'react';
+
+import { fetchRecommendDataAction } from './store/recommend';
+import TopBanner from './c-cpns/top-banner';
 
 interface IProps {
   children?: ReactNode;
 }
 
-interface IBannerListData {
-  imageUrl: string;
-  targetId: number;
-  adid: any;
-  targetType: number;
-  titleColor: string;
-  typeTitle: string;
-  url: string;
-}
-
 const Recommend: FC<IProps> = () => {
-  const [bannerList, setBannerList] = useState<IBannerListData[]>([]);
-
+  // 发起action获取数据
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    hyRequest
-      .get({
-        url: '/banner'
-      })
-      .then((res) => {
-        console.log(res);
-        setBannerList(res.banners);
-      });
+    dispatch(fetchRecommendDataAction());
   }, []);
 
-  return <div>Recommend</div>;
+  return (
+    <div>
+      <TopBanner />
+    </div>
+  );
 };
 
 export default memo(Recommend);
