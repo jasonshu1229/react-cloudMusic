@@ -1,4 +1,4 @@
-import React, { memo, FC, useRef, ElementRef } from 'react';
+import React, { memo, FC, useRef, ElementRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { BannerWrapper, BannerLeft, BannerRight, BannerControl } from './style';
@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const bannerRef = useRef<ElementRef<typeof Carousel>>(null);
 
   const { banners } = useAppSelector(
@@ -27,11 +28,30 @@ const TopBanner: FC<IProps> = () => {
     }
   };
 
+  const handleAfterChange = (current: number) => {
+    setCurrentIndex(current);
+  };
+
+  let bgImgUrl;
+  if (banners.length > 0 && currentIndex >= 0) {
+    bgImgUrl = banners[currentIndex]?.imageUrl + '?imageView&blur=40x20';
+  }
+
   return (
-    <BannerWrapper>
+    <BannerWrapper
+      style={{
+        background: `url(${bgImgUrl}) center center / 6000px`
+      }}
+    >
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel autoplay autoplaySpeed={3000} ref={bannerRef}>
+          <Carousel
+            autoplay
+            autoplaySpeed={3000}
+            effect="fade"
+            ref={bannerRef}
+            afterChange={handleAfterChange}
+          >
             {banners.map((item) => (
               <div className="banner-item" key={item.imageUrl}>
                 <img
