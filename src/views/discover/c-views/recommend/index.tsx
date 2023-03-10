@@ -3,9 +3,12 @@ import React, { memo, FC, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 import { RecommendWrapper } from './style';
-import { fetchRecommendDataAction } from './store/recommend';
+import {
+  fetchHotRecommendDataAction,
+  fetchRecommendDataAction
+} from './store/recommend';
 import TopBanner from './c-cpns/top-banner';
-import HotRecommend from './c-cpns/top-banner/hot-recommend';
+import HotRecommend from './c-cpns/hot-recommend';
 
 interface IProps {
   children?: ReactNode;
@@ -16,6 +19,7 @@ const Recommend: FC<IProps> = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchRecommendDataAction());
+    dispatch(fetchHotRecommendDataAction());
   }, []);
 
   return (

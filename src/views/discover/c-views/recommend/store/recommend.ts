@@ -1,12 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getBanners } from '../service/recommend';
+import { getBanners, getComment, getHotRecommend } from '../service/recommend';
 
 export const fetchRecommendDataAction = createAsyncThunk(
   'banners',
   async (_, { dispatch }) => {
     const result = await getBanners();
     dispatch(changeBanners(result.banners));
+  }
+);
+
+export const fetchHotRecommendDataAction = createAsyncThunk(
+  'hotRecommend',
+  async (_, { dispatch }) => {
+    const result = await getHotRecommend(8);
+    dispatch(changeHotRecommendSongList(result.result));
   }
 );
 
@@ -20,12 +28,21 @@ interface IBannerListData {
   url: string;
 }
 
+interface IHotRecommendSongList {
+  id: number;
+  name: string;
+  picUrl: string;
+  playCount: number;
+}
+
 interface IRecommendState {
   banners: IBannerListData[];
+  hotRecommendSongList: IHotRecommendSongList[];
 }
 
 const initialState: IRecommendState = {
-  banners: []
+  banners: [],
+  hotRecommendSongList: []
 };
 
 const recommendSlice = createSlice({
@@ -33,8 +50,12 @@ const recommendSlice = createSlice({
   initialState,
   reducers: {
     changeBanners(state, { payload }) {
-      console.log(payload);
+      console.log('banners', payload);
       state.banners = payload;
+    },
+    changeHotRecommendSongList(state, { payload }) {
+      console.log('hotRecommendSongList', payload);
+      state.hotRecommendSongList = payload;
     }
   }
   // extraReducers: (builder) => {
@@ -51,5 +72,6 @@ const recommendSlice = createSlice({
   // }
 });
 
-export const { changeBanners } = recommendSlice.actions;
+export const { changeBanners, changeHotRecommendSongList } =
+  recommendSlice.actions;
 export default recommendSlice.reducer;
