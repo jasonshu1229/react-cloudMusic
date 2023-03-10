@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.5...v0.1.6) (2023-03-10)
+
+
+### Features
+
+* 补充-reduxjs/toolkit中的额外类型补充 ([17a4b2e](https://github.com/jasonshu1229/react-cloudMusic/commit/17a4b2ed28fa9bc9608955c47237412d8c018ef6))
+* 轮播图背景的动态设置 ([3d83abc](https://github.com/jasonshu1229/react-cloudMusic/commit/3d83abc898d03498f22c5c95281280113505f344))
+* 轮播图内容搭建 ([5761292](https://github.com/jasonshu1229/react-cloudMusic/commit/5761292e6a3f719c65be8f4b090fad417a1d4347))
+* 轮播图左右控制器逻辑实现 ([5ace59f](https://github.com/jasonshu1229/react-cloudMusic/commit/5ace59f72bad380ab9081e13eab9ec6435ca7598))
+* 头部导航栏布局搭建 ([b690b74](https://github.com/jasonshu1229/react-cloudMusic/commit/b690b7466c4451aec24a73a01016c5581152e758))
+* 头部右侧搜索栏登录按钮开发 ([523618e](https://github.com/jasonshu1229/react-cloudMusic/commit/523618e0013164922eb8ec0b4b450bbe98b4179d))
+* 头部右侧搜索栏开发-发现音乐顶部导航菜单的实现 ([47eb4d7](https://github.com/jasonshu1229/react-cloudMusic/commit/47eb4d7e1891477c6530465b4fd357091f58092c))
+
 ### [0.1.5](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.4...v0.1.5) (2023-03-09)
 
 
