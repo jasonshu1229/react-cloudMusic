@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.6...v0.1.7) (2023-03-10)
+
+
+### Features
+
+* 发现音乐-轮播图功能完善-自定义跑马灯指示器 ([f0b035c](https://github.com/jasonshu1229/react-cloudMusic/commit/f0b035cf590b1e0b20f4e22b3684aaf6a0dac226))
+
 ### [0.1.6](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.5...v0.1.6) (2023-03-10)
 
 
