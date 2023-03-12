@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getBanners, getComment, getHotRecommend } from '../service/recommend';
+import { getBanners, getHotRecommend, getNewAlbum } from '../service/recommend';
 
 export const fetchRecommendDataAction = createAsyncThunk(
   'banners',
@@ -15,6 +15,14 @@ export const fetchHotRecommendDataAction = createAsyncThunk(
   async (_, { dispatch }) => {
     const result = await getHotRecommend(8);
     dispatch(changeHotRecommendSongList(result.result));
+  }
+);
+
+export const fetchNewAblbumAction = createAsyncThunk(
+  'newAlbum',
+  async (_, { dispatch }) => {
+    const result = await getNewAlbum();
+    dispatch(changeNewAlbumList(result.albums));
   }
 );
 
@@ -35,14 +43,23 @@ interface IHotRecommendSongList {
   playCount: number;
 }
 
+interface INewAlbumList {
+  id: number;
+  name: string;
+  picUrl: string;
+  artist: any;
+}
+
 interface IRecommendState {
   banners: IBannerListData[];
   hotRecommendSongList: IHotRecommendSongList[];
+  newAlbumList: INewAlbumList[];
 }
 
 const initialState: IRecommendState = {
   banners: [],
-  hotRecommendSongList: []
+  hotRecommendSongList: [],
+  newAlbumList: []
 };
 
 const recommendSlice = createSlice({
@@ -56,6 +73,10 @@ const recommendSlice = createSlice({
     changeHotRecommendSongList(state, { payload }) {
       console.log('hotRecommendSongList', payload);
       state.hotRecommendSongList = payload;
+    },
+    changeNewAlbumList(state, { payload }) {
+      console.log('newAlbumList', payload);
+      state.newAlbumList = payload;
     }
   }
   // extraReducers: (builder) => {
@@ -72,6 +93,6 @@ const recommendSlice = createSlice({
   // }
 });
 
-export const { changeBanners, changeHotRecommendSongList } =
+export const { changeBanners, changeHotRecommendSongList, changeNewAlbumList } =
   recommendSlice.actions;
 export default recommendSlice.reducer;

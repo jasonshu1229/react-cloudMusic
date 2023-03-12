@@ -5,10 +5,12 @@ import type { ReactNode } from 'react';
 import { RecommendWrapper } from './style';
 import {
   fetchHotRecommendDataAction,
+  fetchNewAblbumAction,
   fetchRecommendDataAction
 } from './store/recommend';
 import TopBanner from './c-cpns/top-banner';
 import HotRecommend from './c-cpns/hot-recommend';
+import NewAlbum from './c-cpns/new-album';
 
 interface IProps {
   children?: ReactNode;
@@ -20,6 +22,7 @@ const Recommend: FC<IProps> = () => {
   useEffect(() => {
     dispatch(fetchRecommendDataAction());
     dispatch(fetchHotRecommendDataAction());
+    dispatch(fetchNewAblbumAction());
   }, []);
 
   return (
@@ -28,6 +31,7 @@ const Recommend: FC<IProps> = () => {
       <div className="content wrap-v2">
         <div className="left">
           <HotRecommend />
+          <NewAlbum />
         </div>
         <div className="right">right</div>
       </div>

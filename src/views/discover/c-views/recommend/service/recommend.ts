@@ -15,6 +15,12 @@ export function getHotRecommend(limit = 30) {
   });
 }
 
+export function getNewAlbum() {
+  return hyRequest.get({
+    url: '/album/newest'
+  });
+}
+
 // 歌曲评论
 export function getComment(id = 186016, limit = 20) {
   return hyRequest.get({
