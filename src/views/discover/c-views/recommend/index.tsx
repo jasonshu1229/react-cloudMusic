@@ -3,11 +3,7 @@ import React, { memo, FC, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 import { RecommendWrapper } from './style';
-import {
-  fetchHotRecommendDataAction,
-  fetchNewAblbumAction,
-  fetchRecommendDataAction
-} from './store/recommend';
+import { fetchRecommendData } from './store/recommend';
 import TopBanner from './c-cpns/top-banner';
 import HotRecommend from './c-cpns/hot-recommend';
 import NewAlbum from './c-cpns/new-album';
@@ -20,9 +16,10 @@ const Recommend: FC<IProps> = () => {
   // 发起action获取数据
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchRecommendDataAction());
-    dispatch(fetchHotRecommendDataAction());
-    dispatch(fetchNewAblbumAction());
+    // dispatch(fetchRecommendDataAction());
+    // dispatch(fetchHotRecommendDataAction());
+    // dispatch(fetchNewAblbumAction());
+    dispatch(fetchRecommendData());
   }, []);
 
   return (

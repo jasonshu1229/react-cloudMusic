@@ -2,18 +2,27 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { getBanners, getHotRecommend, getNewAlbum } from '../service/recommend';
 
-export const fetchRecommendData = createAsyncThunk(
-  'recommendData',
-  (_, { dispatch }) => {
-    getBanners().then((res) => {
-      dispatch(changeBanners(res.banners));
-    });
-    getHotRecommend(8).then((res) => {
-      dispatch(changeHotRecommendSongList(res.result));
-    });
-    getNewAlbum().then((res) => {
-      dispatch(changeNewAlbumList(res.albums));
-    });
+export const fetchRecommendDataAction = createAsyncThunk(
+  'banners',
+  async (_, { dispatch }) => {
+    const result = await getBanners();
+    dispatch(changeBanners(result.banners));
+  }
+);
+
+export const fetchHotRecommendDataAction = createAsyncThunk(
+  'hotRecommend',
+  async (_, { dispatch }) => {
+    const result = await getHotRecommend(8);
+    dispatch(changeHotRecommendSongList(result.result));
+  }
+);
+
+export const fetchNewAblbumAction = createAsyncThunk(
+  'newAlbum',
+  async (_, { dispatch }) => {
+    const result = await getNewAlbum();
+    dispatch(changeNewAlbumList(result.albums));
   }
 );
 
