@@ -30,6 +30,15 @@ export function getPlayListDetail(id: number) {
   });
 }
 
+export function getArtistList(limit = 30) {
+  return hyRequest.get({
+    url: 'artist/list',
+    params: {
+      limit
+    }
+  });
+}
+
 // 歌曲评论
 export function getComment(id = 186016, limit = 20) {
   return hyRequest.get({

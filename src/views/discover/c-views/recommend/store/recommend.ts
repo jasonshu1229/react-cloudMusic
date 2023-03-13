@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import {
+  getArtistList,
   getBanners,
   getHotRecommend,
   getNewAlbum,
@@ -18,6 +19,9 @@ export const fetchRecommendDataAction = createAsyncThunk(
     });
     getNewAlbum().then((res) => {
       dispatch(changeNewAlbumList(res.albums));
+    });
+    getArtistList().then((res) => {
+      dispatch(changeArtistList(res.artists));
     });
   }
 );
@@ -49,7 +53,6 @@ export const fetchRankingListDataAction = createAsyncThunk(
       promises.push(getPlayListDetail(id));
     }
     Promise.all(promises).then((res) => {
-      console.log(res);
       const rankList = res.map((item) => item.playlist);
       dispatch(changeRankingList(rankList));
     });
@@ -87,18 +90,27 @@ export interface IRankList {
   tracks: any;
 }
 
+interface IArtistList {
+  id: number;
+  alias: string[];
+  picUrl: string;
+  name: string;
+}
+
 interface IRecommendState {
   banners: IBannerListData[];
   hotRecommendSongList: IHotRecommendSongList[];
   newAlbumList: INewAlbumList[];
   rankList: IRankList[];
+  artistList: IArtistList[];
 }
 
 const initialState: IRecommendState = {
   banners: [],
   hotRecommendSongList: [],
   newAlbumList: [],
-  rankList: []
+  rankList: [],
+  artistList: []
 };
 
 const recommendSlice = createSlice({
@@ -119,6 +131,9 @@ const recommendSlice = createSlice({
     },
     changeRankingList(state, { payload }) {
       state.rankList = payload;
+    },
+    changeArtistList(state, { payload }) {
+      state.artistList = payload;
     }
   }
   // extraReducers: (builder) => {
@@ -139,6 +154,7 @@ export const {
   changeBanners,
   changeHotRecommendSongList,
   changeNewAlbumList,
-  changeRankingList
+  changeRankingList,
+  changeArtistList
 } = recommendSlice.actions;
 export default recommendSlice.reducer;

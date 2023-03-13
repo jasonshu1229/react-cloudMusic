@@ -48,7 +48,7 @@ const TopRankingItem: FC<IProps> = (props) => {
         })}
       </div>
       <div className="footer">
-        <a href="/discover/ranking">查看全部 &gt;</a>
+        <a href="#/discover/ranking">查看全部 &gt;</a>
       </div>
     </RankingItemWrapper>
   );
