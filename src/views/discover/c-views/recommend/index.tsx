@@ -3,10 +3,14 @@ import React, { memo, FC, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 import { RecommendWrapper } from './style';
-import { fetchRecommendData } from './store/recommend';
+import {
+  fetchRecommendDataAction,
+  fetchRankingListDataAction
+} from './store/recommend';
 import TopBanner from './c-cpns/top-banner';
 import HotRecommend from './c-cpns/hot-recommend';
 import NewAlbum from './c-cpns/new-album';
+import TopRanking from './c-cpns/top-ranking';
 
 interface IProps {
   children?: ReactNode;
@@ -19,7 +23,8 @@ const Recommend: FC<IProps> = () => {
     // dispatch(fetchRecommendDataAction());
     // dispatch(fetchHotRecommendDataAction());
     // dispatch(fetchNewAblbumAction());
-    dispatch(fetchRecommendData());
+    dispatch(fetchRecommendDataAction());
+    dispatch(fetchRankingListDataAction());
   }, []);
 
   return (
@@ -29,6 +34,7 @@ const Recommend: FC<IProps> = () => {
         <div className="left">
           <HotRecommend />
           <NewAlbum />
+          <TopRanking />
         </div>
         <div className="right">right</div>
       </div>

@@ -21,6 +21,15 @@ export function getNewAlbum() {
   });
 }
 
+export function getPlayListDetail(id: number) {
+  return hyRequest.get({
+    url: '/playlist/detail',
+    params: {
+      id
+    }
+  });
+}
+
 // 歌曲评论
 export function getComment(id = 186016, limit = 20) {
   return hyRequest.get({
