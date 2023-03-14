@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.7...v0.1.8) (2023-03-14)
+
+
+### Features
+
+* 榜单区域开发 ([ec34188](https://github.com/jasonshu1229/react-cloudMusic/commit/ec3418845ca31e478d07ec9559955b5d462a5cf7))
+* 播放工具栏结构搭建 ([37ed152](https://github.com/jasonshu1229/react-cloudMusic/commit/37ed152c1156b3c9bab3675ce32e331a5e530ce1))
+* 封装一些格式化工具函数 ([7ef79bf](https://github.com/jasonshu1229/react-cloudMusic/commit/7ef79bf75e0e7904535024120e8d5eafdcebfaaf))
+* 歌曲播放-歌曲的播放和暂停控制逻辑,播放进度的监听和修改Slider的step ([d1f9b76](https://github.com/jasonshu1229/react-cloudMusic/commit/d1f9b76a86bdc52885b32d91ec6050ef3d3eccab))
+* 推荐页面-热门推荐的Item结构封装 ([5db02ae](https://github.com/jasonshu1229/react-cloudMusic/commit/5db02ae698c8a2e0f78087036b0c170d802a0237))
+* 推荐页面-头部区域Header的封装 ([c9f6538](https://github.com/jasonshu1229/react-cloudMusic/commit/c9f653813882558990db398338854d459a1308d7))
+* 推荐页面-右侧列表开发 ([caaaa46](https://github.com/jasonshu1229/react-cloudMusic/commit/caaaa46373976f95001ddb92bd349c23cefd28f2))
+* 新碟上架轮播开发 ([c16fb5e](https://github.com/jasonshu1229/react-cloudMusic/commit/c16fb5ec03fdf32b56f6b90978c415e6c0328acf))
+* AreaHeader的props的类型约束,以及改为传参 ([efab924](https://github.com/jasonshu1229/react-cloudMusic/commit/efab92475e01ea4e74106e50cd209c8f75e8b0a7))
+* store中另外组织代码的方式 ([a8b70ea](https://github.com/jasonshu1229/react-cloudMusic/commit/a8b70ea6b5e04c04e5e4e279d55ef956624ae078))
+
 ### [0.1.7](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.6...v0.1.7) (2023-03-10)
 
 
