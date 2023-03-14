@@ -118,15 +118,15 @@ const recommendSlice = createSlice({
   initialState,
   reducers: {
     changeBanners(state, { payload }) {
-      console.log('banners', payload);
+      // console.log('banners', payload);
       state.banners = payload;
     },
     changeHotRecommendSongList(state, { payload }) {
-      console.log('hotRecommendSongList', payload);
+      // console.log('hotRecommendSongList', payload);
       state.hotRecommendSongList = payload;
     },
     changeNewAlbumList(state, { payload }) {
-      console.log('newAlbumList', payload);
+      // console.log('newAlbumList', payload);
       state.newAlbumList = payload;
     },
     changeRankingList(state, { payload }) {

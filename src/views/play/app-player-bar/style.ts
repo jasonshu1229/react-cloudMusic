@@ -22,7 +22,11 @@ export const PlayerBarWrapper = styled.div`
   }
 `;
 
-export const BarControl = styled.div`
+interface IBarControl {
+  isPlaying: boolean;
+}
+
+export const BarControl = styled.div<IBarControl>`
   display: flex;
   align-items: center;
 
@@ -44,7 +48,7 @@ export const BarControl = styled.div`
     width: 36px;
     height: 36px;
     margin: 0 8px;
-    background-position: 0 -204px;
+    background-position: 0 ${(props) => (props.isPlaying ? '-165px' : '-204px')};
   }
 
   .next {
