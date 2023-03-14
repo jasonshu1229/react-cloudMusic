@@ -12,6 +12,7 @@ const Album = lazy(() => import('@/views/discover/c-views/album'));
 const Download = lazy(() => import('@/views/download'));
 const Focus = lazy(() => import('@/views/focus'));
 const Mine = lazy(() => import('@/views/mine'));
+const Player = lazy(() => import('@/views/play'));
 
 const routes: RouteObject[] = [
   {
@@ -63,6 +64,10 @@ const routes: RouteObject[] = [
   {
     path: '/mine',
     element: <Mine />
+  },
+  {
+    path: '/player',
+    element: <Player />
   }
 ];
 
