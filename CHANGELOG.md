@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.12...v0.1.13) (2023-03-15)
+
+
+### Features
+
+* 歌曲播放-根据当前时间匹配对应的歌词 ([bbf6511](https://github.com/jasonshu1229/react-cloudMusic/commit/bbf651193aeb789a04f7e3dcde7f782c0da43037))
+
 ### [0.1.12](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.11...v0.1.12) (2023-03-15)
 
 
