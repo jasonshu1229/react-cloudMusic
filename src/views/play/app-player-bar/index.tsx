@@ -12,7 +12,12 @@ import {
 } from './style';
 import { shallowAppEqual, useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatImgUrlSize, formatTime, getSongPlayUrl } from '@/utils/format';
-import { changeLyricIndexAction, changePlayModeAction } from '../store/player';
+import {
+  changeLyricIndexAction,
+  changeCurrentMusicAcion,
+  changePlayModeAction,
+  changeCurrentLyricsAction
+} from '../store/player';
 
 interface IProps {
   children?: ReactNode;
@@ -44,6 +49,18 @@ const AppPlayerBar: FC<IProps> = () => {
     const songPlayUrl = getSongPlayUrl(currentSong.id);
     audioRef.current!.src = songPlayUrl;
 
+    // 每次 songPlayUrl 改变后会自动播放歌曲
+    audioRef.current
+      ?.play()
+      .then(() => {
+        setIsPlaying(true);
+        console.log('歌曲播放成功');
+      })
+      .catch((err) => {
+        setIsPlaying(false);
+        console.log('歌曲播放失败', err);
+      });
+
     setDuration(currentSong.dt);
   }, [currentSong]);
 
@@ -55,6 +72,11 @@ const AppPlayerBar: FC<IProps> = () => {
 
     // 2. 改变isPlaying的状态
     setIsPlaying(!isPlaying);
+  };
+
+  const handleChangeMusic = (isNext = true) => {
+    dispatch(changeCurrentMusicAcion(isNext));
+    dispatch(changeCurrentLyricsAction(isNext));
   };
 
   const handleChangePlayMode = () => {
@@ -125,12 +147,18 @@ const AppPlayerBar: FC<IProps> = () => {
       {contextHolder}
       <div className="content wrap-v2">
         <BarControl isPlaying={isPlaying}>
-          <button className="btn sprite_playbar prev" />
+          <button
+            className="btn sprite_playbar prev"
+            onClick={() => handleChangeMusic(false)}
+          />
           <button
             className="btn sprite_playbar play"
             onClick={handlePlayClick}
           />
-          <button className="btn sprite_playbar next" />
+          <button
+            className="btn sprite_playbar next"
+            onClick={() => handleChangeMusic()}
+          />
         </BarControl>
         <BarPlayerInfo>
           <Link to="/player">

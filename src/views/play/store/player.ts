@@ -1,12 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { getSongDetail, getSongLyric } from '../service/player';
 import { ILyric, parseLyric } from '@/utils/parse-lyric';
 import { IRootState } from '@/store';
 
+interface IThunkState {
+  state: IRootState;
+}
+
 export const fetchCurrentSongAction = createAsyncThunk<
   void,
   number,
-  { state: IRootState }
+  IThunkState
 >('currentSong', (id, { dispatch, getState }) => {
   // 准备播放某一首歌时，分成两种情况
   // 1. 从列表尝试是否可以获取到这首歌
@@ -40,6 +44,49 @@ export const fetchCurrentSongAction = createAsyncThunk<
     // 2. 将歌词解析成一个个对象
     const lyrics = parseLyric(lyricString);
     // 3. 将歌词放到state中
+    dispatch(changeLyricsAction(lyrics));
+  });
+});
+
+export const changeCurrentMusicAcion = createAsyncThunk<
+  void,
+  boolean,
+  IThunkState
+>('changeMusic', (isNext, { dispatch, getState }) => {
+  // 1. 获取 state 中的数据
+  const player = getState().player;
+  const playSongIndex = player.playSongIndex;
+  const playSongList = player.playSongList;
+  const playMode = player.playMode;
+
+  // 2. 根据不同的播放模式计算下一首歌曲的索引
+  let newIndex = playSongIndex; // 保存即将要播放歌曲的索引
+  if (playMode === 1) {
+    // 随机播放
+    newIndex = Math.floor(Math.random() * playSongList.length);
+  } else {
+    // 单曲循环和顺序播放（都是跳到下一首或上一首）
+    newIndex = isNext ? playSongIndex + 1 : playSongIndex - 1;
+    if (newIndex > playSongList.length - 1) newIndex = 0;
+    if (newIndex < 0) newIndex = playSongList.length - 1;
+  }
+
+  // 3. 获取当前的歌曲
+  const currentPlaySong = playSongList[newIndex];
+  dispatch(changeCurrentSongAction(currentPlaySong));
+  dispatch(changePlaySongIndexAction(newIndex));
+});
+
+export const changeCurrentLyricsAction = createAsyncThunk<
+  void,
+  boolean,
+  IThunkState
+>('changeLyrics', (isNext, { dispatch, getState }) => {
+  const player = getState().player;
+  const currentSong = player.currentSong;
+  getSongLyric(currentSong.id).then((res) => {
+    const lyricString = res.lrc.lyric;
+    const lyrics = parseLyric(lyricString);
     dispatch(changeLyricsAction(lyrics));
   });
 });
