@@ -11,8 +11,7 @@ import {
   BarOperator
 } from './style';
 import { shallowAppEqual, useAppSelector } from '@/store/hooks';
-import { formatImgUrlSize, formatTime } from '@/utils/format';
-import { getSongUrl } from '../service/player';
+import { formatImgUrlSize, formatTime, getSongPlayUrl } from '@/utils/format';
 
 interface IProps {
   children?: ReactNode;
@@ -34,15 +33,9 @@ const AppPlayerBar: FC<IProps> = () => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const songUrl = await getSongUrl(currentSong.id);
-        audioRef.current!.src = songUrl.data[0].url;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchData();
+    const songPlayUrl = getSongPlayUrl(currentSong.id);
+    audioRef.current!.src = songPlayUrl;
+
     setDuration(currentSong.dt);
   }, [currentSong]);
 
@@ -107,14 +100,14 @@ const AppPlayerBar: FC<IProps> = () => {
         <BarPlayerInfo>
           <Link to="/player">
             <img
-              src={formatImgUrlSize(currentSong.al.picUrl, 34)}
+              src={formatImgUrlSize(currentSong?.al?.picUrl, 34)}
               className="image"
             />
           </Link>
           <div className="info">
             <div className="song">
               <span className="song-name">{currentSong.name}</span>
-              <span className="singer-name">{currentSong?.ar[0].name}</span>
+              <span className="singer-name">{currentSong?.ar?.[0]?.name}</span>
             </div>
             <div className="progress">
               <Slider
