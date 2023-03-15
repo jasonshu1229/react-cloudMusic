@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.9...v0.1.10) (2023-03-15)
+
+
+### Features
+
+* 歌曲播放-歌曲播放的进度条点击和拖拽同步播放功能的实现 ([c76abe5](https://github.com/jasonshu1229/react-cloudMusic/commit/c76abe56dc8530c9c640d1d9f904ced354f52cfd))
+
 ### [0.1.9](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.8...v0.1.9) (2023-03-15)
 
 
