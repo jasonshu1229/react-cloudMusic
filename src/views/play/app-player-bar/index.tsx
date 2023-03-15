@@ -118,6 +118,16 @@ const AppPlayerBar: FC<IProps> = () => {
     });
   };
 
+  const handleTimeEnded = () => {
+    if (playMode === 2) {
+      // 单曲循环
+      audioRef.current!.currentTime = 0;
+      audioRef.current?.play();
+    } else {
+      handleChangeMusic(true);
+    }
+  };
+
   const handleSliderClickChanged = (value: number) => {
     // 1. 获取点击位置的时间
     const currentTime = (value / 100) * duration;
@@ -204,7 +214,11 @@ const AppPlayerBar: FC<IProps> = () => {
           </div>
         </BarOperator>
       </div>
-      <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} />
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleTimeEnded}
+      />
     </PlayerBarWrapper>
   );
 };
