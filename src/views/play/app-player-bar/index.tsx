@@ -11,7 +11,7 @@ import {
   BarOperator
 } from './style';
 import { shallowAppEqual, useAppSelector } from '@/store/hooks';
-import { formatImgUrlSize } from '@/utils/format';
+import { formatImgUrlSize, formatTime } from '@/utils/format';
 import { getSongUrl } from '../service/player';
 
 interface IProps {
@@ -22,6 +22,7 @@ const AppPlayerBar: FC<IProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const { currentSong } = useAppSelector(
@@ -54,6 +55,7 @@ const AppPlayerBar: FC<IProps> = () => {
 
   const handleTimeUpdate = () => {
     const currentTime = audioRef.current!.currentTime * 1000;
+    setCurrentTime(currentTime);
 
     const progress = (currentTime / duration) * 100;
     setProgress(progress);
@@ -89,9 +91,9 @@ const AppPlayerBar: FC<IProps> = () => {
                 tooltip={{ formatter: null }}
               />
               <div className="time">
-                <span className="current">00:02</span>
+                <span className="current">{formatTime(currentTime)}</span>
                 <span className="divider">/</span>
-                <span className="duration">{duration}</span>
+                <span className="duration">{formatTime(duration)}</span>
               </div>
             </div>
           </div>
