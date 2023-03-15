@@ -2,7 +2,7 @@ import React, { memo, FC, useRef, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Slider } from 'antd';
+import { Button, Slider, message } from 'antd';
 
 import {
   PlayerBarWrapper,
@@ -12,7 +12,6 @@ import {
 } from './style';
 import { shallowAppEqual, useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatImgUrlSize, formatTime, getSongPlayUrl } from '@/utils/format';
-import { time } from 'console';
 import { changeLyricIndexAction } from '../store/player';
 
 interface IProps {
@@ -20,6 +19,8 @@ interface IProps {
 }
 
 const AppPlayerBar: FC<IProps> = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -79,7 +80,13 @@ const AppPlayerBar: FC<IProps> = () => {
     }
     if (index === -1 || lyricIndex === index) return;
     dispatch(changeLyricIndexAction(index));
-    console.log(lyrics[index]?.text);
+
+    // 4. 展示对应的歌词
+    messageApi.open({
+      content: lyrics[index].text,
+      key: 'lyric',
+      duration: 0
+    });
   };
 
   const handleSliderClickChanged = (value: number) => {
@@ -108,6 +115,7 @@ const AppPlayerBar: FC<IProps> = () => {
 
   return (
     <PlayerBarWrapper className="sprite_playbar">
+      {contextHolder}
       <div className="content wrap-v2">
         <BarControl isPlaying={isPlaying}>
           <button className="btn sprite_playbar prev" />
