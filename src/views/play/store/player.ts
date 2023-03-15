@@ -1,5 +1,7 @@
+import { ILyric } from './../../../../.history/src/utils/parse-lyric_20230315163442';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getSongDetail, getSongLyric } from '../service/player';
+import { parseLyric } from '@/utils/parse-lyric';
 
 export const fetchCurrentSongAction = createAsyncThunk(
   'currentSong',
@@ -14,18 +16,17 @@ export const fetchCurrentSongAction = createAsyncThunk(
     getSongLyric(id).then((res) => {
       // 1. 获取歌词的字符串
       const lyricString = res.lrc.lyric;
-      console.log(res);
-      console.log(lyricString);
       // 2. 将歌词解析成一个个对象
-      // const lyrics =
-      // dispatch(changeLyricsAction(lyricString));
+      const lyrics = parseLyric(lyricString);
+      // 3. 将歌词放到state中
+      dispatch(changeLyricsAction(lyrics));
     });
   }
 );
 
 interface IPlayerState {
   currentSong: any;
-  lyrics: string[];
+  lyrics: ILyric[];
 }
 
 const initialState: IPlayerState = {
