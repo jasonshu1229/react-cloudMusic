@@ -24,13 +24,13 @@ export const fetchCurrentSongAction = createAsyncThunk<
       newPlayList.push(song);
       dispatch(changePlayListAction(newPlayList));
       dispatch(changeCurrentSongAction(song));
-      dispatch(changePlaySongIndex(newPlayList.length - 1));
+      dispatch(changePlaySongIndexAction(newPlayList.length - 1));
     });
   } else {
     // 在播放列表中找到了准备播放的歌曲
     const song = playSongList[findIndex];
     dispatch(changeCurrentSongAction(song));
-    dispatch(changePlaySongIndex(findIndex));
+    dispatch(changePlaySongIndexAction(findIndex));
   }
 
   // 2. 获取正在播放歌曲的歌词数据
@@ -50,6 +50,7 @@ interface IPlayerState {
   lyricIndex: number;
   playSongList: any[];
   playSongIndex: number;
+  playMode: number;
 }
 
 const initialState: IPlayerState = {
@@ -319,7 +320,8 @@ const initialState: IPlayerState = {
       publishTime: 1257091200007
     }
   ],
-  playSongIndex: -1
+  playSongIndex: -1,
+  playMode: 0 // 0：顺序播放 1：随机播放 2：单曲循环
 };
 
 const playerSlice = createSlice({
@@ -338,8 +340,11 @@ const playerSlice = createSlice({
     changePlayListAction(state, { payload }) {
       state.playSongList = payload;
     },
-    changePlaySongIndex(state, { payload }) {
+    changePlaySongIndexAction(state, { payload }) {
       state.playSongIndex = payload;
+    },
+    changePlayModeAction(state, { payload }) {
+      state.playMode = payload;
     }
   }
 });
@@ -349,6 +354,7 @@ export const {
   changeLyricsAction,
   changeLyricIndexAction,
   changePlayListAction,
-  changePlaySongIndex
+  changePlaySongIndexAction,
+  changePlayModeAction
 } = playerSlice.actions;
 export default playerSlice.reducer;
