@@ -23,6 +23,7 @@ const AppPlayerBar: FC<IProps> = () => {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isSliding, setIsSlding] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const { currentSong } = useAppSelector(
@@ -46,19 +47,50 @@ const AppPlayerBar: FC<IProps> = () => {
   }, [currentSong]);
 
   const handlePlayClick = () => {
+    // 1. 控制播放器的播放和暂停
     isPlaying
       ? audioRef.current?.pause()
       : audioRef.current?.play().catch((err) => console.log(err));
 
+    // 2. 改变isPlaying的状态
     setIsPlaying(!isPlaying);
   };
 
   const handleTimeUpdate = () => {
+    // audioRef.current!.currentTime 4.8
+    // 1、 获取当前的播放时间
     const currentTime = audioRef.current!.currentTime * 1000;
-    setCurrentTime(currentTime);
 
-    const progress = (currentTime / duration) * 100;
-    setProgress(progress);
+    // 2. 计算当前的歌曲进度
+    if (!isSliding) {
+      const progress = (currentTime / duration) * 100;
+      setCurrentTime(currentTime);
+      setProgress(progress);
+    }
+  };
+
+  const handleSliderClickChanged = (value: number) => {
+    // 1. 获取点击位置的时间
+    const currentTime = (value / 100) * duration;
+
+    // 2. 设置当前播放时间
+    audioRef.current!.currentTime = currentTime / 1000;
+
+    // 3. currentTime/progress
+    setCurrentTime(currentTime);
+    setProgress(value);
+    setIsSlding(false);
+  };
+
+  const handleSliderChanging = (value: number) => {
+    // 目前处于拖拽状态
+    setIsSlding(true);
+    // 1. 设置 progress
+    setProgress(value);
+
+    // 2.获取value对应位置的时间
+    const currentTime = (value / 100) * duration;
+    setCurrentTime(currentTime);
   };
 
   return (
@@ -89,6 +121,8 @@ const AppPlayerBar: FC<IProps> = () => {
                 step={0.4}
                 value={progress}
                 tooltip={{ formatter: null }}
+                onAfterChange={handleSliderClickChanged}
+                onChange={handleSliderChanging}
               />
               <div className="time">
                 <span className="current">{formatTime(currentTime)}</span>
