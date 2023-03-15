@@ -10,8 +10,10 @@ import {
   BarPlayerInfo,
   BarOperator
 } from './style';
-import { shallowAppEqual, useAppSelector } from '@/store/hooks';
+import { shallowAppEqual, useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatImgUrlSize, formatTime, getSongPlayUrl } from '@/utils/format';
+import { time } from 'console';
+import { changeLyricIndexAction } from '../store/player';
 
 interface IProps {
   children?: ReactNode;
@@ -25,9 +27,13 @@ const AppPlayerBar: FC<IProps> = () => {
   const [isSliding, setIsSlding] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { currentSong } = useAppSelector(
+  const dispatch = useAppDispatch();
+
+  const { currentSong, lyrics, lyricIndex } = useAppSelector(
     (state) => ({
-      currentSong: state.player.currentSong
+      currentSong: state.player.currentSong,
+      lyrics: state.player.lyrics,
+      lyricIndex: state.player.lyricIndex
     }),
     shallowAppEqual
   );
@@ -60,6 +66,20 @@ const AppPlayerBar: FC<IProps> = () => {
       setCurrentTime(currentTime);
       setProgress(progress);
     }
+
+    // 3. 根据当前的时间匹配对应的歌词
+    // let index = -1; // 最后一句歌词找不到
+    let index = lyrics.length - 1;
+    for (let i = 0; i < lyrics.length; i++) {
+      const lyric = lyrics[i];
+      if (lyric.time > currentTime) {
+        index = i - 1;
+        break;
+      }
+    }
+    if (index === -1 || lyricIndex === index) return;
+    dispatch(changeLyricIndexAction(index));
+    console.log(lyrics[index]?.text);
   };
 
   const handleSliderClickChanged = (value: number) => {
