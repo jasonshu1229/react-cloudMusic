@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.13...v0.1.14) (2023-03-15)
+
+
+### Features
+
+* 歌曲播放-message组件展示歌词的效果 ([05a0c4a](https://github.com/jasonshu1229/react-cloudMusic/commit/05a0c4ae7335fe35228ddd603f0c1edc0e81661c))
+
 ### [0.1.13](https://github.com/jasonshu1229/react-cloudMusic/compare/v0.1.12...v0.1.13) (2023-03-15)
 
 
