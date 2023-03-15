@@ -1,39 +1,325 @@
-import { ILyric } from './../../../../.history/src/utils/parse-lyric_20230315163442';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getSongDetail, getSongLyric } from '../service/player';
-import { parseLyric } from '@/utils/parse-lyric';
+import { ILyric, parseLyric } from '@/utils/parse-lyric';
+import { IRootState } from '@/store';
 
-export const fetchCurrentSongAction = createAsyncThunk(
-  'currentSong',
-  (id: number, { dispatch }) => {
+export const fetchCurrentSongAction = createAsyncThunk<
+  void,
+  number,
+  { state: IRootState }
+>('currentSong', (id, { dispatch, getState }) => {
+  // 准备播放某一首歌时，分成两种情况
+  // 1. 从列表尝试是否可以获取到这首歌
+  const playSongList = getState().player.playSongList;
+  const findIndex = playSongList.findIndex((item) => item.id === id);
+  if (findIndex === -1) {
+    // 在播放列表中没有找到当前准备播放的歌曲信息
     getSongDetail(id).then((res) => {
+      // 1. 获取song
       if (!res.songs.length) return;
       const song = res.songs[0];
 
+      // 2. 将song放到currentSong中
+      const newPlayList = [...playSongList];
+      newPlayList.push(song);
+      dispatch(changePlayListAction(newPlayList));
       dispatch(changeCurrentSongAction(song));
+      dispatch(changePlaySongIndex(newPlayList.length - 1));
     });
-
-    getSongLyric(id).then((res) => {
-      // 1. 获取歌词的字符串
-      const lyricString = res.lrc.lyric;
-      // 2. 将歌词解析成一个个对象
-      const lyrics = parseLyric(lyricString);
-      // 3. 将歌词放到state中
-      dispatch(changeLyricsAction(lyrics));
-    });
+  } else {
+    // 在播放列表中找到了准备播放的歌曲
+    const song = playSongList[findIndex];
+    dispatch(changeCurrentSongAction(song));
+    dispatch(changePlaySongIndex(findIndex));
   }
-);
+
+  // 2. 获取正在播放歌曲的歌词数据
+  getSongLyric(id).then((res) => {
+    // 1. 获取歌词的字符串
+    const lyricString = res.lrc.lyric;
+    // 2. 将歌词解析成一个个对象
+    const lyrics = parseLyric(lyricString);
+    // 3. 将歌词放到state中
+    dispatch(changeLyricsAction(lyrics));
+  });
+});
 
 interface IPlayerState {
   currentSong: any;
   lyrics: ILyric[];
   lyricIndex: number;
+  playSongList: any[];
+  playSongIndex: number;
 }
 
 const initialState: IPlayerState = {
   currentSong: {},
   lyrics: [],
-  lyricIndex: -1
+  lyricIndex: -1,
+  playSongList: [
+    {
+      name: '他不懂',
+      id: 28059417,
+      pst: 0,
+      t: 0,
+      ar: [
+        {
+          id: 6472,
+          name: '张杰',
+          tns: [],
+          alias: []
+        }
+      ],
+      alia: [],
+      pop: 100,
+      st: 0,
+      rt: '600907000002790687',
+      fee: 8,
+      v: 264,
+      crbt: null,
+      cf: '',
+      al: {
+        id: 2643348,
+        name: '爱，不解释',
+        picUrl:
+          'https://p1.music.126.net/mW53BkMgGy37I7yVrUg-aQ==/109951163117902077.jpg',
+        tns: [],
+        pic_str: '109951163117902077',
+        pic: 109951163117902080
+      },
+      dt: 232213,
+      h: {
+        br: 320000,
+        fid: 0,
+        size: 9290925,
+        vd: 1244,
+        sr: 48000
+      },
+      m: {
+        br: 192000,
+        fid: 0,
+        size: 5574573,
+        vd: 3882,
+        sr: 48000
+      },
+      l: {
+        br: 128000,
+        fid: 0,
+        size: 3716397,
+        vd: 5649,
+        sr: 48000
+      },
+      sq: {
+        br: 748262,
+        fid: 0,
+        size: 21719554,
+        vd: 378,
+        sr: 48000
+      },
+      hr: null,
+      a: null,
+      cd: '1',
+      no: 1,
+      rtUrl: null,
+      ftype: 0,
+      rtUrls: [],
+      djId: 0,
+      copyright: 0,
+      s_id: 0,
+      mark: 8704,
+      originCoverType: 1,
+      originSongSimpleData: null,
+      tagPicList: null,
+      resourceState: true,
+      version: 264,
+      songJumpInfo: null,
+      entertainmentTags: null,
+      awardTags: null,
+      single: 0,
+      noCopyrightRcmd: null,
+      rtype: 0,
+      rurl: null,
+      mst: 9,
+      cp: 636011,
+      mv: 5779657,
+      publishTime: 1387468800007
+    },
+    {
+      name: '你不在',
+      id: 1301732871,
+      pst: 0,
+      t: 0,
+      ar: [
+        {
+          id: 5346,
+          name: '王力宏',
+          tns: [],
+          alias: []
+        }
+      ],
+      alia: [],
+      pop: 100,
+      st: 0,
+      rt: null,
+      fee: 8,
+      v: 21,
+      crbt: null,
+      cf: '',
+      al: {
+        id: 72309025,
+        name: '恋爱占星音乐全精选',
+        picUrl:
+          'https://p2.music.126.net/febOkiCikU5OcjVLqGNLlg==/109951165994484307.jpg',
+        tns: [],
+        pic_str: '109951165994484307',
+        pic: 109951165994484300
+      },
+      dt: 273906,
+      h: {
+        br: 320000,
+        fid: 0,
+        size: 10958933,
+        vd: -42273,
+        sr: 44100
+      },
+      m: {
+        br: 192000,
+        fid: 0,
+        size: 6575377,
+        vd: -39693,
+        sr: 44100
+      },
+      l: {
+        br: 128000,
+        fid: 0,
+        size: 4383599,
+        vd: -38051,
+        sr: 44100
+      },
+      sq: {
+        br: 1616574,
+        fid: 0,
+        size: 55348828,
+        vd: -42234,
+        sr: 44100
+      },
+      hr: null,
+      a: null,
+      cd: '02',
+      no: 5,
+      rtUrl: null,
+      ftype: 0,
+      rtUrls: [],
+      djId: 0,
+      copyright: 1,
+      s_id: 0,
+      mark: 270336,
+      originCoverType: 1,
+      originSongSimpleData: null,
+      tagPicList: null,
+      resourceState: true,
+      version: 21,
+      songJumpInfo: null,
+      entertainmentTags: null,
+      awardTags: null,
+      single: 0,
+      noCopyrightRcmd: null,
+      mst: 9,
+      cp: 7001,
+      rtype: 0,
+      rurl: null,
+      mv: 0,
+      publishTime: 1169654400000
+    },
+    {
+      name: '看月亮爬上来',
+      id: 191179,
+      pst: 0,
+      t: 0,
+      ar: [
+        {
+          id: 6472,
+          name: '张杰',
+          tns: [],
+          alias: []
+        }
+      ],
+      alia: [],
+      pop: 100,
+      st: 0,
+      rt: '600902000007324091',
+      fee: 8,
+      v: 187,
+      crbt: null,
+      cf: '',
+      al: {
+        id: 19315,
+        name: '穿越三部曲',
+        picUrl:
+          'https://p2.music.126.net/toC85mlrFHuy7JfyPtqkHA==/109951163071273845.jpg',
+        tns: [],
+        pic_str: '109951163071273845',
+        pic: 109951163071273840
+      },
+      dt: 198413,
+      h: {
+        br: 320000,
+        fid: 0,
+        size: 7939178,
+        vd: -44406,
+        sr: 44100
+      },
+      m: {
+        br: 192000,
+        fid: 0,
+        size: 4763524,
+        vd: -44406,
+        sr: 44100
+      },
+      l: {
+        br: 128000,
+        fid: 0,
+        size: 3175697,
+        vd: -44406,
+        sr: 44100
+      },
+      sq: {
+        br: 937120,
+        fid: 0,
+        size: 23242153,
+        vd: -44406,
+        sr: 44100
+      },
+      hr: null,
+      a: null,
+      cd: '1',
+      no: 1,
+      rtUrl: null,
+      ftype: 0,
+      rtUrls: [],
+      djId: 0,
+      copyright: 2,
+      s_id: 0,
+      mark: 8704,
+      originCoverType: 1,
+      originSongSimpleData: null,
+      tagPicList: null,
+      resourceState: true,
+      version: 187,
+      songJumpInfo: null,
+      entertainmentTags: null,
+      awardTags: null,
+      single: 0,
+      noCopyrightRcmd: null,
+      mv: 5779679,
+      rtype: 0,
+      rurl: null,
+      mst: 9,
+      cp: 636011,
+      publishTime: 1257091200007
+    }
+  ],
+  playSongIndex: -1
 };
 
 const playerSlice = createSlice({
@@ -48,6 +334,12 @@ const playerSlice = createSlice({
     },
     changeLyricIndexAction(state, { payload }) {
       state.lyricIndex = payload;
+    },
+    changePlayListAction(state, { payload }) {
+      state.playSongList = payload;
+    },
+    changePlaySongIndex(state, { payload }) {
+      state.playSongIndex = payload;
     }
   }
 });
@@ -55,6 +347,8 @@ const playerSlice = createSlice({
 export const {
   changeCurrentSongAction,
   changeLyricsAction,
-  changeLyricIndexAction
+  changeLyricIndexAction,
+  changePlayListAction,
+  changePlaySongIndex
 } = playerSlice.actions;
 export default playerSlice.reducer;
